@@ -1,5 +1,4 @@
 <template>
-  <!-- ToDo List -->
   <div id="todoListPage" class="bg-half">
     <nav>
       <h1><a href="#">ONLINE TODO LIST</a></h1>

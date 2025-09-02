@@ -1,5 +1,4 @@
 <template>
-  <!-- login_page -->
   <div id="loginPage" class="bg-yellow">
     <div class="conatiner loginPage vhContainer ">
       <div class="side">

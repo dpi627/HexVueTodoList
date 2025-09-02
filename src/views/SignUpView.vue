@@ -1,5 +1,4 @@
 <template>
-  <!-- sign up -->
   <div id="signUpPage" class="bg-yellow">
     <div class="conatiner signUpPage vhContainer">
       <div class="side">
