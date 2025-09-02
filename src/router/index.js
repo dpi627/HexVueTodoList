@@ -1,3 +1,6 @@
+import SignInView from '@/views/SignInView.vue'
+import SignUpView from '@/views/SignUpView.vue'
+import TodoListView from '@/views/TodoListView.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,17 +9,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'signin',
-      component: () => import('../views/SignInView.vue'),
+      component: SignInView,
     },
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue'),
+      component: SignUpView,
     },
     {
       path: '/todolist',
       name: 'todolist',
-      component: () => import('../views/TodoListView.vue'),
+      component: TodoListView,
     },
   ],
 })
