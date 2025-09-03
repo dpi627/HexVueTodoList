@@ -17,11 +17,11 @@ export const useTodoStore = defineStore('todo', () => {
   })
 
   const completedCount = computed(() => {
-    return todos.value.filter((todo) => todo.computed).length
+    return todos.value.filter((todo) => todo.status).length
   })
 
   const pendingCount = computed(() => {
-    return todos.value.filter((todo) => !todo.computed).length
+    return todos.value.filter((todo) => !todo.status).length
   })
 
   const add = (content) => {
