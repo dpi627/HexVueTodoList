@@ -12,7 +12,7 @@
         <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo" />
       </ul>
       <div class="todoList_statistics">
-        <p> {{ todoStore.completedCount }} 個已完成項目</p>
+        <p> {{ todoStore.pendingCount }} 個未完成項目</p>
       </div>
     </div>
   </div>

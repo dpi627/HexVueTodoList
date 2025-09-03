@@ -19,6 +19,7 @@ const todoStore = useTodoStore();
 defineProps({
   todo: {
     type: Object,
+    required: true,
     default: () => ({})
   }
 })
