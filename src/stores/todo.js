@@ -16,6 +16,8 @@ export const useTodoStore = defineStore('todo', () => {
     }
   })
 
+  const totalCount = computed(() => todos.value.length)
+
   const completedCount = computed(() => {
     return todos.value.filter((todo) => todo.status).length
   })
@@ -60,6 +62,7 @@ export const useTodoStore = defineStore('todo', () => {
     todos,
     filter,
     filteredTodos,
+    totalCount,
     completedCount,
     pendingCount,
     add,

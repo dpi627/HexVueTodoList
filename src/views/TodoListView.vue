@@ -10,14 +10,17 @@
     <div class="conatiner todoListPage vhContainer">
       <div class="todoList_Content">
         <TodoForm />
-        <TodoList />
+        <TodoList v-if="todoStore.totalCount" />
+        <div class="alert alert-warning text-secondary" v-else>無代辦事項</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useTodoStore } from '@/stores/todo';
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
 
+const todoStore = useTodoStore()
 </script>
