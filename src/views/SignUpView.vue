@@ -36,6 +36,9 @@
 <script setup>
 import { ref } from 'vue'
 import { signUp } from '@/utils/api'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const email = ref('exm@gmail.com')
 const password = ref('abc123')
@@ -53,6 +56,7 @@ const handleSignUp = async () => {
     .then((response) => {
       console.log('Sign up successful:', response)
       alert(`註冊成功: ${response.data.uid}`)
+      router.push({ name: 'signin' })
       // Handle successful sign-up (e.g., redirect to login page)
     })
     .catch((error) => {
