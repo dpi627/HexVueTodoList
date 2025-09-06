@@ -5,6 +5,9 @@ const api = axios.create({
   timeout: 10000,
 })
 
+// 攔截器
+// ===============================================================
+
 // 請求攔截器：自動添加 Authorization header
 api.interceptors.request.use(
   (config) => {
@@ -35,7 +38,8 @@ api.interceptors.response.use(
   },
 )
 
-// 現有的 API 函數
+// User
+// ===============================================================
 export const signUp = async (email, password, nickname) => {
   return api.post('/users/sign_up', {
     email: email,
@@ -51,13 +55,18 @@ export const signIn = async (email, password) => {
   })
 }
 
-// 新增需要 token 的 API 函數
+// Todo
+// ===============================================================
 export const getTodos = async () => {
   return api.get('/todos')
 }
 
 export const addTodo = async (content) => {
   return api.post('/todos', { content })
+}
+
+export const toggleTodo = async (id) => {
+  return api.patch(`/todos/${id}/toggle`)
 }
 
 export const updateTodo = async (id, data) => {
