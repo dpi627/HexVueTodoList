@@ -10,18 +10,69 @@
           alt="workImg">
       </div>
       <div>
-        <form class="formControls" action="index.html">
+        <form class="formControls">
           <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
           <label class="formControls_label" for="email">Email</label>
-          <input class="formControls_input" type="text" id="email" name="email" placeholder="請輸入 email" required>
-          <span>此欄位不可留空</span>
+          <input v-model="email" class="formControls_input" type="text" id="email" name="email" placeholder="請輸入 email"
+            required>
+          <span v-if="emailError">{{ emailError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
-          <input class="formControls_input" type="password" name="pwd" id="pwd" placeholder="請輸入密碼" required>
-          <input class="formControls_btnSubmit" type="button" onclick="javascript:location.href='#todoListPage'"
-            value="登入">
-          <a class="formControls_btnLink" href="#signUpPage">註冊帳號</a>
+          <input v-model="password" class="formControls_input" type="password" name="pwd" id="pwd" placeholder="請輸入密碼"
+            required>
+          <span v-if="passwordError">{{ passwordError }}</span>
+          <input @click.prevent="submitForm" class="formControls_btnSubmit" type="button" value="登入">
+          <router-link to="/signup" class="formControls_btnLink">註冊帳號</router-link>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { RouterLink, useRouter } from 'vue-router'
+import { useForm, useField } from 'vee-validate'
+import { object, string } from 'yup'  // 移除 'email' 和 'minLength'
+import { signIn } from '@/utils/api'
+import { useUserStore } from '@/stores/user'
+
+const router = useRouter()
+const userStore = useUserStore()
+
+// 定義驗證規則（使用 Yup）
+const schema = object({
+  email: string()
+    .email('請輸入有效的 email 格式')
+    .required('此欄位不可留空'),
+  password: string()
+    .required('此欄位不可留空'),
+})
+
+// 使用 VeeValidate - handleSubmit
+const { handleSubmit } = useForm({ validationSchema: schema })
+// 定義欄位與錯誤訊息
+const { value: email, errorMessage: emailError } = useField('email')
+const { value: password, errorMessage: passwordError } = useField('password')
+
+
+// 提交處理方法封裝
+const submitForm = handleSubmit(async (values) => {
+  try {
+    const response = await signIn(values.email, values.password)
+    console.log('Sign in successful:', response)
+
+    // 從響應中獲取用戶信息
+    const { token, nickname } = response.data
+
+    // 保存到 user store
+    userStore.save(token, nickname)
+
+    alert(`登入成功！歡迎回來，${nickname}`)
+
+    // 重定向到 todolist
+    router.push('/todolist')
+  } catch (error) {
+    console.error('Sign in error:', error)
+    alert(`登入失敗: ${error.response?.data?.message || '未知錯誤'}`)
+  }
+})
+</script>
