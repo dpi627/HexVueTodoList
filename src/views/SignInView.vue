@@ -2,15 +2,14 @@
   <div id="loginPage" class="bg-yellow">
     <div class="conatiner loginPage vhContainer ">
       <div class="side">
-        <img class="logoImg"
-          src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/logo.png" alt="">
+        <img class="logoImg" src="/img/logo.png" alt="">
         <img class="d-m-n"
           src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/img.png"
           alt="workImg">
       </div>
       <div>
         <form class="formControls">
-          <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
+          <h2 class="formControls_txt">最實用的線上待辦事項服務</h2>
           <label class="formControls_label" for="email">Email</label>
           <input v-model="email" @keypress.enter.prevent="submitForm" class="formControls_input" type="text" id="email"
             name="email" placeholder="請輸入 email" required>
@@ -68,7 +67,7 @@ const submitForm = handleSubmit(async (values) => {
     // 保存到 user store
     userStore.save(token, nickname)
 
-    await showSuccessAlert('登入成功！', `歡迎回來，${nickname}`, 3000)
+    await showSuccessAlert(`歡迎回來，${nickname}`, '正在轉導到待辦事項....', 3000)
 
     // 重定向到 todolist
     router.push('/todolist')

@@ -6,7 +6,7 @@
       <span>{{ todo.content }}</span>
     </label>
     <a href="#" @click.prevent="handleRemove" :class="{ disabled: todoStore.loading }">
-      <i class="fa fa-times"></i>
+      <i class="fa fa-trash"></i>
     </a>
   </li>
 </template>
@@ -43,6 +43,28 @@ const handleRemove = async () => {
 </script>
 
 <style scoped>
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todoList_label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  /* 可選：設定按鈕大小 */
+  width: 24px;
+  height: 24px;
+}
+
 .disabled {
   opacity: 0.5;
   pointer-events: none;
