@@ -4,12 +4,12 @@ import { ref } from 'vue'
 export const useUserStore = defineStore('user', () => {
   const token = ref('')
   const nickname = ref('')
-  const isLoggIn = ref(false)
+  const isLogin = ref(false)
 
   const save = (token, nickname) => {
     token.value = token
     nickname.value = nickname
-    isLoggIn.value = true
+    isLogin.value = true
 
     // 儲存資料
     localStorage.setItem('token', token)
@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', () => {
   const clear = () => {
     token.value = ''
     nickname.value = ''
-    isLoggIn.value = false
+    isLogin.value = false
 
     // 清除資料
     localStorage.removeItem('token')
@@ -34,14 +34,14 @@ export const useUserStore = defineStore('user', () => {
     if (savedToken && savedNickname) {
       token.value = savedToken
       nickname.value = savedNickname
-      isLoggIn.value = true
+      isLogin.value = true
     }
   }
 
   return {
     token,
     nickname,
-    isLoggedIn: isLoggIn,
+    isLogin,
     save,
     clear,
     init,
