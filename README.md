@@ -1,35 +1,6 @@
 # HexVueTodoList
 
-This template should help get you started developing with Vue 3 in Vite.
+Hex School Vue Bootcamp 2025 Final Task
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+> [!NOTE]
+> Resource: [Figma](https://www.figma.com/design/MFSk8P5jmmC2ns9V9YeCzM/TodoList?node-id=0-1&p=f), [CodePen](https://codepen.io/snijqlte-the-bold/pen/PwPxdde), [API](https://todolist-api.hexschool.io/doc/), [Notion](https://chalk-freedom-ec6.notion.site/2516ab47eb4880cab9f7d0d2e92c8607?pvs=74)

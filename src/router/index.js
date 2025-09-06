@@ -7,12 +7,12 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/signin',
       name: 'signin',
       component: SignInView,
     },
     {
-      path: '/signup',
+      path: '/',
       name: 'signup',
       component: SignUpView,
     },
