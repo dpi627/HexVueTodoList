@@ -3,8 +3,8 @@
     <nav>
       <h1><a href="#">ONLINE TODO LIST</a></h1>
       <ul>
-        <li class="todo_sm"><a href="#"><span>王小明的待辦</span></a></li>
-        <li><a href="#loginPage">登出</a></li>
+        <li class="todo_sm"><a href="#"><span>{{ userStore.nickname }} 的待辦</span></a></li>
+        <li><a href="#" @click.prevent="logout">登出</a></li>
       </ul>
     </nav>
     <div class="conatiner todoListPage vhContainer">
@@ -18,9 +18,30 @@
 </template>
 
 <script setup>
-import { useTodoStore } from '@/stores/todo';
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useTodoStore } from '@/stores/todo'
+import { useUserStore } from '@/stores/user'
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
 
+const router = useRouter()
 const todoStore = useTodoStore()
+const userStore = useUserStore()
+
+// 登出
+const logout = () => {
+  userStore.clear()
+  router.push('/signin')
+}
+
+// 檢查用戶是否已登入
+onMounted(() => {
+  userStore.init()
+
+  // 未登入導向登錄頁面
+  if (!userStore.isLogin) {
+    router.push('/signin')
+  }
+})
 </script>
