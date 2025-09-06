@@ -25,9 +25,9 @@
             placeholder="請輸入密碼" required>
           <span v-if="passwordError" class="error">{{ passwordError }}</span>
           <label class="formControls_label" for="pwd">再次輸入密碼</label>
-          <input class="formControls_input" v-model="passwordAgainValue" type="password" name="pwd" id="pwd2"
+          <input class="formControls_input" v-model="passwordConfirmValue" type="password" name="pwd" id="pwd2"
             placeholder="請再次輸入密碼" required>
-          <span v-if="passwordAgainError" class="error">{{ passwordAgainError }}</span>
+          <span v-if="passwordConfirmError" class="error">{{ passwordConfirmError }}</span>
           <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm" />
           <router-link to="SignIn" class="formControls_btnLink">登入</router-link>
         </form>
@@ -58,7 +58,7 @@ const schema = object({
     .matches(/[a-zA-Z]/, '密碼必須包含英文')
     .matches(/\d/, '密碼必須包含數字')
     .required('此欄位不可留空'),
-  passwordAgain: string()
+  passwordConfirm: string()
     .oneOf([yupRef('password')], '兩次輸入的密碼不一致')
     .required('此欄位不可留空'),
 })
@@ -69,7 +69,7 @@ const { handleSubmit } = useForm({ validationSchema: schema })
 const { value: emailValue, errorMessage: emailError } = useField('email')
 const { value: nicknameValue, errorMessage: nicknameError } = useField('nickname')
 const { value: passwordValue, errorMessage: passwordError } = useField('password')
-const { value: passwordAgainValue, errorMessage: passwordAgainError } = useField('passwordAgain')
+const { value: passwordConfirmValue, errorMessage: passwordConfirmError } = useField('passwordConfirm')
 
 
 // 提交處理
