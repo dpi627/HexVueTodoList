@@ -11,7 +11,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useTodoStore } from '@/stores/todo'
-import { showErrorAlert } from '@/utils/sweetAlert'
+import { showErrorAlert, showSuccessToast } from '@/utils/sweetAlert'
 
 const newTodo = ref('')
 const todoStore = useTodoStore();
@@ -29,6 +29,7 @@ const handleSubmit = async () => {
   await todoStore.add(newTodo.value)
 
   if (!todoStore.error) {
+    showSuccessToast('新增待辦事項', `"${newTodo.value}" 加入清單`)
     newTodo.value = ''
   }
 }

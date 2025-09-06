@@ -46,4 +46,21 @@ export const showConfirmAlert = async (title, text = '') => {
   return result.isConfirmed
 }
 
+export const showSuccessToast = (title, text = '', timer = 3000) => {
+  return Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: timer,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+  })
+}
+
 export default Swal
