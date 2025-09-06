@@ -38,20 +38,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
-import { object, string, ref as yup } from 'yup'  // 移除 'email' 和 'minLength'
+import { object, string, ref as yupRef } from 'yup'  // 移除 'email' 和 'minLength'
 import { signUp } from '@/utils/api'
 
-const router = useRouter()
-
-// 使用 VeeValidate
-const { handleSubmit } = useForm({ validationSchema: schema })
-const { value: emailValue, errorMessage: emailError } = useField('email')
-const { value: nicknameValue, errorMessage: nicknameError } = useField('nickname')
-const { value: passwordValue, errorMessage: passwordError } = useField('password')
-const { value: passwordAgainValue, errorMessage: passwordAgainError } = useField('passwordAgain')
+// const router = useRouter()
 
 // 定義驗證規則（使用 Yup）
 const schema = object({
@@ -67,9 +59,18 @@ const schema = object({
     .matches(/\d/, '密碼必須包含數字')
     .required('此欄位不可留空'),
   passwordAgain: string()
-    .oneOf([yup('password')], '兩次輸入的密碼不一致')
+    .oneOf([yupRef('password')], '兩次輸入的密碼不一致')
     .required('此欄位不可留空'),
 })
+
+// 使用 VeeValidate
+const { handleSubmit } = useForm({ validationSchema: schema })
+
+const { value: emailValue, errorMessage: emailError } = useField('email')
+const { value: nicknameValue, errorMessage: nicknameError } = useField('nickname')
+const { value: passwordValue, errorMessage: passwordError } = useField('password')
+const { value: passwordAgainValue, errorMessage: passwordAgainError } = useField('passwordAgain')
+
 
 // 提交處理
 const onSubmit = handleSubmit(async (values) => {
