@@ -10,7 +10,7 @@
           alt="workImg">
       </div>
       <div>
-        <form class="formControls" @submit.prevent="onSubmit" action="index.html">
+        <form class="formControls">
           <h2 class="formControls_txt">註冊帳號</h2>
           <label class="formControls_label" for="email">Email</label>
           <input class="formControls_input" v-model="emailValue" type="text" id="email" name="email"
@@ -28,7 +28,7 @@
           <input class="formControls_input" v-model="passwordAgainValue" type="password" name="pwd" id="pwd2"
             placeholder="請再次輸入密碼" required>
           <span v-if="passwordAgainError" class="error">{{ passwordAgainError }}</span>
-          <input class="formControls_btnSubmit" type="submit" value="註冊帳號" />
+          <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm" />
           <router-link to="SignIn" class="formControls_btnLink">登入</router-link>
         </form>
       </div>
@@ -38,12 +38,12 @@
 </template>
 
 <script setup>
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import { object, string, ref as yupRef } from 'yup'  // 移除 'email' 和 'minLength'
 import { signUp } from '@/utils/api'
 
-// const router = useRouter()
+const router = useRouter()
 
 // 定義驗證規則（使用 Yup）
 const schema = object({
@@ -73,12 +73,13 @@ const { value: passwordAgainValue, errorMessage: passwordAgainError } = useField
 
 
 // 提交處理
-const onSubmit = handleSubmit(async (values) => {
+const submitForm = handleSubmit(async (values) => {
   try {
     const response = await signUp(values.email, values.password, values.nickname)
     console.log('Sign up successful:', response)
     alert(`註冊成功: ${response.data.uid}`)
     // 處理成功（例如，重定向到登入頁面）
+    router.push('/login');
   } catch (error) {
     console.error('Sign up error:', error)
     alert(`註冊失敗: ${error.response?.data?.message || '未知錯誤'}`)
