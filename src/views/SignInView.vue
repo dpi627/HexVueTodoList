@@ -3,9 +3,7 @@
     <div class="conatiner loginPage vhContainer ">
       <div class="side">
         <img class="logoImg" src="/img/logo.png" alt="">
-        <img class="d-m-n"
-          src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/img.png"
-          alt="workImg">
+        <img class="d-m-n" src="/img/signin.jpeg" alt="workImg">
       </div>
       <div>
         <form class="formControls">
@@ -67,7 +65,7 @@ const submitForm = handleSubmit(async (values) => {
     // 保存到 user store
     userStore.save(token, nickname)
 
-    await showSuccessAlert(`歡迎回來，${nickname}`, '正在轉導到待辦事項....', 3000)
+    await showSuccessAlert(`歡迎回來，${nickname}`, '即將前往待辦事項....', 3000)
 
     // 重定向到 todolist
     router.push('/todolist')

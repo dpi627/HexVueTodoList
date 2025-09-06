@@ -22,7 +22,9 @@
 
         <TodoForm />
         <TodoList v-if="todoStore.totalCount" />
-        <div class="alert alert-warning text-secondary" v-else>無待辦事項</div>
+        <div class="empty-todo-bg d-block mx-auto" v-else>
+          <div class="empty-todo-label">無待辦事項</div>
+        </div>
       </div>
     </div>
   </div>
@@ -54,3 +56,30 @@ const logout = async () => {
   }
 }
 </script>
+
+<style scoped>
+.empty-todo-bg {
+  position: relative;
+  width: 480px;
+  height: 320px;
+  background: url('/img/empty-task.jpeg') center/cover no-repeat;
+  margin: 0 auto;
+}
+
+.empty-todo-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 150px;
+  height: 80px;
+  background: #fff;
+  color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+</style>

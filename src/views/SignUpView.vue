@@ -3,9 +3,7 @@
     <div class="conatiner signUpPage vhContainer">
       <div class="side">
         <img class="logoImg" src="/img/logo.png" alt="">
-        <img class="d-m-n"
-          src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/img.png"
-          alt="workImg">
+        <img class="d-m-n" src="/img/signup.jpeg" alt="workImg">
       </div>
       <div>
         <form class="formControls">
