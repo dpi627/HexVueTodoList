@@ -2,23 +2,19 @@
   <div id="loginPage" class="bg-yellow">
     <div class="conatiner loginPage vhContainer ">
       <div class="side">
-        <a href="#"><img class="logoImg"
-            src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/logo.png"
-            alt=""></a>
-        <img class="d-m-n"
-          src="https://raw.githubusercontent.com/hexschool/2022-web-layout-training/main/todolist/img.png"
-          alt="workImg">
+        <a href="#"><img class="logoImg" src="/images/logo.png" alt=""></a>
+        <img class="d-m-n" src="/images/signin.jpeg" alt="workImg">
       </div>
       <div>
         <form class="formControls">
           <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
           <label class="formControls_label" for="email">Email</label>
-          <input v-model="email" class="formControls_input" type="text" id="email" name="email" placeholder="請輸入 email"
-            required>
+          <input v-model="email" @keypress.enter.prevent="submitForm" class="formControls_input" type="text" id="email"
+            name="email" placeholder="請輸入 email" required>
           <span v-if="emailError">{{ emailError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
-          <input v-model="password" class="formControls_input" type="password" name="pwd" id="pwd" placeholder="請輸入密碼"
-            required>
+          <input v-model="password" @keypress.enter.prevent="submitForm" class="formControls_input" type="password"
+            name="pwd" id="pwd" placeholder="請輸入密碼" required>
           <span v-if="passwordError">{{ passwordError }}</span>
           <input @click.prevent="submitForm" class="formControls_btnSubmit" type="button" value="登入">
           <router-link to="/signup" class="formControls_btnLink">註冊帳號</router-link>
@@ -53,6 +49,8 @@ const { handleSubmit } = useForm({ validationSchema: schema })
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
 
+email.value = 'exm@gmail.com'
+password.value = 'abc123'
 
 // 提交處理方法封裝
 const submitForm = handleSubmit(async (values) => {
