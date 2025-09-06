@@ -101,9 +101,43 @@ export const useTodoStore = defineStore('todo', () => {
     filter.value = newFilter
   }
 
-  // const clearCompleted = () => {
-  //   todos.value = todos.value.filter((todo) => !todo.status)
-  // }
+  const completeAll = async () => {
+    try {
+      loading.value = true
+      error.value = ''
+      const pendingTodos = todos.value.filter((todo) => !todo.status)
+
+      for (const todo of pendingTodos) {
+        await toggleTodo(todo.id)
+        todo.status = true
+      }
+    } catch (err) {
+      error.value = err.response?.data?.message || '批量完成待辦事項失敗'
+      console.error('Complete all todos error:', err)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const clearCompleted = async () => {
+    try {
+      loading.value = true
+      error.value = ''
+      const completedTodos = todos.value.filter((todo) => todo.status)
+
+      for (const todo of completedTodos) {
+        await deleteTodo(todo.id)
+      }
+
+      // 從本地陣列移除已完成的項目
+      todos.value = todos.value.filter((todo) => !todo.status)
+    } catch (err) {
+      error.value = err.response?.data?.message || '清除已完成項目失敗'
+      console.error('Clear completed todos error:', err)
+    } finally {
+      loading.value = false
+    }
+  }
 
   return {
     todos,
@@ -117,6 +151,9 @@ export const useTodoStore = defineStore('todo', () => {
     remove,
     toggle,
     setFilter,
-    // clearCompleted,
+    completeAll,
+    clearCompleted,
+    loading,
+    error,
   }
 })
