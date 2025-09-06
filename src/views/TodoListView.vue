@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTodoStore } from '@/stores/todo'
 import { useUserStore } from '@/stores/user'
@@ -34,14 +33,4 @@ const logout = () => {
   userStore.clear()
   router.push('/signin')
 }
-
-// 檢查用戶是否已登入
-onMounted(() => {
-  userStore.init()
-
-  // 未登入導向登錄頁面
-  if (!userStore.isLogin) {
-    router.push('/signin')
-  }
-})
 </script>
