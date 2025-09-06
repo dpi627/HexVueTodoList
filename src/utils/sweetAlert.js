@@ -20,8 +20,8 @@ export const showErrorAlert = (title, text = '') => {
   })
 }
 
-export const showConfirmAlert = (title, text = '') => {
-  return Swal.fire({
+export const showConfirmAlert = async (title, text = '') => {
+  const result = await Swal.fire({
     icon: 'question',
     title: title,
     text: text,
@@ -31,6 +31,9 @@ export const showConfirmAlert = (title, text = '') => {
     confirmButtonColor: '#333333',
     cancelButtonColor: '#9f9a91',
   })
+
+  // 返回布林值，而不是整個結果對象
+  return result.isConfirmed
 }
 
 export default Swal

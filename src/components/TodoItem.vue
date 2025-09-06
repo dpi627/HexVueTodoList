@@ -13,6 +13,7 @@
 
 <script setup>
 import { useTodoStore } from '@/stores/todo'
+import { showConfirmAlert } from '@/utils/sweetAlert';
 
 const todoStore = useTodoStore();
 
@@ -34,7 +35,10 @@ const handleToggle = async () => {
 
 const handleRemove = async () => {
   if (todoStore.loading) return
-  await todoStore.remove(props.todo.id)
+  const confirmed = await showConfirmAlert('確定刪除待辦事項？', props.todo.content)
+  if (confirmed) {
+    await todoStore.remove(props.todo.id)
+  }
 }
 </script>
 
