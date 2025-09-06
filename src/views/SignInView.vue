@@ -34,6 +34,7 @@ import { useForm, useField } from 'vee-validate'
 import { object, string } from 'yup'  // 移除 'email' 和 'minLength'
 import { signIn } from '@/utils/api'
 import { useUserStore } from '@/stores/user'
+import { showSuccessAlert, showErrorAlert } from '@/utils/sweetAlert'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -68,13 +69,13 @@ const submitForm = handleSubmit(async (values) => {
     // 保存到 user store
     userStore.save(token, nickname)
 
-    alert(`登入成功！歡迎回來，${nickname}`)
+    await showSuccessAlert('登入成功！', `歡迎回來，${nickname}`)
 
     // 重定向到 todolist
     router.push('/todolist')
   } catch (error) {
-    console.error('Sign in error:', error)
-    alert(`登入失敗: ${error.response?.data?.message || '未知錯誤'}`)
+    // console.error('Sign in error:', error)
+    await showErrorAlert('登入失敗', error.response?.data?.message || '未知錯誤')
   }
 })
 </script>

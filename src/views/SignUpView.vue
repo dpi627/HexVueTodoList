@@ -41,6 +41,7 @@ import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import { object, string, ref as yupRef } from 'yup'  // 移除 'email' 和 'minLength'
 import { signUp } from '@/utils/api'
+import { showSuccessAlert, showErrorAlert } from '@/utils/sweetAlert'
 
 const router = useRouter()
 
@@ -75,13 +76,13 @@ const { value: passwordConfirm, errorMessage: passwordConfirmError } = useField(
 const submitForm = handleSubmit(async (values) => {
   try {
     const response = await signUp(values.email, values.password, values.nickname)
-    console.log('Sign up successful:', response)
-    alert(`註冊成功: ${response.data.uid}`)
+    // console.log('Sign up successful:', response)
+    await showSuccessAlert('註冊成功！', `用戶 ID: ${response.data.uid}`)
     // 處理成功（例如，重定向到登入頁面）
     router.push('/signin');
   } catch (error) {
-    console.error('Sign up error:', error)
-    alert(`註冊失敗: ${error.response?.data?.message || '未知錯誤'}`)
+    // console.error('Sign up error:', error)
+    await showErrorAlert('註冊失敗', error.response?.data?.message || '未知錯誤')
   }
 })
 </script>

@@ -9,11 +9,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useTodoStore } from '@/stores/todo'
+import { showErrorAlert } from '@/utils/sweetAlert'
 
 const newTodo = ref('')
 const todoStore = useTodoStore();
+
+// 監聽錯誤
+watch(() => todoStore.error, (newError) => {
+  if (newError) {
+    showErrorAlert('操作失敗', newError)
+  }
+})
 
 const handleSubmit = async () => {
   if (!newTodo.value.trim() || todoStore.loading) return
