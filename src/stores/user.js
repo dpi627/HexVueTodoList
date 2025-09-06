@@ -6,14 +6,15 @@ export const useUserStore = defineStore('user', () => {
   const nickname = ref('')
   const isLogin = ref(false)
 
-  const save = (token, nickname) => {
-    token.value = token
-    nickname.value = nickname
+  const save = (tokenValue, nicknameValue) => {
+    console.log('Saving user data:', { tokenValue, nicknameValue })
+    token.value = tokenValue
+    nickname.value = nicknameValue
     isLogin.value = true
 
     // 儲存資料
-    localStorage.setItem('token', token)
-    localStorage.setItem('nickname', nickname)
+    localStorage.setItem('token', token.value)
+    localStorage.setItem('nickname', nickname.value)
   }
 
   const clear = () => {
