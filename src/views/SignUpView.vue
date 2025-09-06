@@ -28,7 +28,7 @@
             placeholder="請再次輸入密碼" required>
           <span v-if="passwordConfirmError" class="error">{{ passwordConfirmError }}</span>
           <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm" />
-          <router-link to="SignIn" class="formControls_btnLink">登入</router-link>
+          <router-link to="/signin" class="formControls_btnLink">登入</router-link>
         </form>
       </div>
     </div>
@@ -78,7 +78,7 @@ const submitForm = handleSubmit(async (values) => {
     console.log('Sign up successful:', response)
     alert(`註冊成功: ${response.data.uid}`)
     // 處理成功（例如，重定向到登入頁面）
-    router.push('/login');
+    router.push('/signin');
   } catch (error) {
     console.error('Sign up error:', error)
     alert(`註冊失敗: ${error.response?.data?.message || '未知錯誤'}`)
