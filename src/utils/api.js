@@ -12,3 +12,10 @@ export const signUp = async (email, password, nickname) => {
     nickname: nickname,
   })
 }
+
+export const signIn = async (email, password) => {
+  return api.post('/users/sign_in', {
+    email: email,
+    password: password,
+  })
+}
