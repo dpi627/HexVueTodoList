@@ -1,6 +1,7 @@
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import TodoListView from '@/views/TodoListView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
@@ -36,6 +37,11 @@ const router = createRouter({
       meta: {
         requiresAuth: true, // 需要登入才能訪問
       },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notfound',
+      component: NotFoundView,
     },
   ],
 })
