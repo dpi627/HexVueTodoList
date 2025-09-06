@@ -13,19 +13,18 @@
         <form class="formControls">
           <h2 class="formControls_txt">註冊帳號</h2>
           <label class="formControls_label" for="email">Email</label>
-          <input class="formControls_input" v-model="emailValue" type="text" id="email" name="email"
-            placeholder="請輸入 email" required>
+          <input class="formControls_input" v-model="email" type="text" id="email" name="email" placeholder="請輸入 email"
+            required>
           <span v-if="emailError" class="error">{{ emailError }}</span> <!-- 顯示錯誤 -->
           <label class="formControls_label" for="name">您的暱稱</label>
-          <input class="formControls_input" v-model="nicknameValue" type="text" name="name" id="name"
-            placeholder="請輸入您的暱稱">
+          <input class="formControls_input" v-model="nickname" type="text" name="name" id="name" placeholder="請輸入您的暱稱">
           <span v-if="nicknameError" class="error">{{ nicknameError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
-          <input class="formControls_input" v-model="passwordValue" type="password" name="pwd" id="pwd"
-            placeholder="請輸入密碼" required>
+          <input class="formControls_input" v-model="password" type="password" name="pwd" id="pwd" placeholder="請輸入密碼"
+            required>
           <span v-if="passwordError" class="error">{{ passwordError }}</span>
           <label class="formControls_label" for="pwd">再次輸入密碼</label>
-          <input class="formControls_input" v-model="passwordConfirmValue" type="password" name="pwd" id="pwd2"
+          <input class="formControls_input" v-model="passwordConfirm" type="password" name="pwd" id="pwd2"
             placeholder="請再次輸入密碼" required>
           <span v-if="passwordConfirmError" class="error">{{ passwordConfirmError }}</span>
           <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm" />
@@ -63,16 +62,16 @@ const schema = object({
     .required('此欄位不可留空'),
 })
 
-// 使用 VeeValidate
+// 使用 VeeValidate - handleSubmit
 const { handleSubmit } = useForm({ validationSchema: schema })
+// 定義欄位與錯誤訊息
+const { value: email, errorMessage: emailError } = useField('email')
+const { value: nickname, errorMessage: nicknameError } = useField('nickname')
+const { value: password, errorMessage: passwordError } = useField('password')
+const { value: passwordConfirm, errorMessage: passwordConfirmError } = useField('passwordConfirm')
 
-const { value: emailValue, errorMessage: emailError } = useField('email')
-const { value: nicknameValue, errorMessage: nicknameError } = useField('nickname')
-const { value: passwordValue, errorMessage: passwordError } = useField('password')
-const { value: passwordConfirmValue, errorMessage: passwordConfirmError } = useField('passwordConfirm')
 
-
-// 提交處理
+// 提交處理方法封裝
 const submitForm = handleSubmit(async (values) => {
   try {
     const response = await signUp(values.email, values.password, values.nickname)
