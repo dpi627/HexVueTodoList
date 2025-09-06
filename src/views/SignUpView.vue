@@ -70,13 +70,16 @@ const { value: nickname, errorMessage: nicknameError } = useField('nickname')
 const { value: password, errorMessage: passwordError } = useField('password')
 const { value: passwordConfirm, errorMessage: passwordConfirmError } = useField('passwordConfirm')
 
+email.value = 'exm@gmail.com'
+nickname.value = 'dpi'
+password.value = passwordConfirm.value = 'abc123'
 
 // 提交處理方法封裝
 const submitForm = handleSubmit(async (values) => {
   try {
-    const response = await signUp(values.email, values.password, values.nickname)
+    await signUp(values.email, values.password, values.nickname)
     // console.log('Sign up successful:', response)
-    await showSuccessAlert('註冊成功！', `用戶 ID: ${response.data.uid}`)
+    await showSuccessAlert('註冊成功！', '前往登入頁面...', 3000)
     // 處理成功（例如，重定向到登入頁面）
     router.push('/signin');
   } catch (error) {
