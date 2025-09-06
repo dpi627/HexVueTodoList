@@ -6,7 +6,7 @@ export const useUserStore = defineStore('user', () => {
   const nickname = ref('')
   const isLoggIn = ref(false)
 
-  const login = (token, nickname) => {
+  const save = (token, nickname) => {
     token.value = token
     nickname.value = nickname
     isLoggIn.value = true
@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', () => {
     localStorage.setItem('nickname', nickname)
   }
 
-  const logout = () => {
+  const clear = () => {
     token.value = ''
     nickname.value = ''
     isLoggIn.value = false
@@ -42,8 +42,8 @@ export const useUserStore = defineStore('user', () => {
     token,
     nickname,
     isLoggedIn: isLoggIn,
-    login,
-    logout,
+    save,
+    clear,
     init,
   }
 })
