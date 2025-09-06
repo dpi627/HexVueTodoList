@@ -9,6 +9,11 @@
     </nav>
     <div class="conatiner todoListPage vhContainer">
       <div class="todoList_Content">
+        <!-- 載入狀態 -->
+        <div v-if="todoStore.loading" class="alert alert-info">載入中...</div>
+        <!-- 錯誤訊息 -->
+        <div v-if="todoStore.error" class="alert alert-danger">{{ todoStore.error }}</div>
+
         <TodoForm />
         <TodoList v-if="todoStore.totalCount" />
         <div class="alert alert-warning text-secondary" v-else>無代辦事項</div>
@@ -18,6 +23,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTodoStore } from '@/stores/todo'
 import { useUserStore } from '@/stores/user'
@@ -27,6 +33,10 @@ import TodoList from '@/components/TodoList.vue'
 const router = useRouter()
 const todoStore = useTodoStore()
 const userStore = useUserStore()
+
+onMounted(() => {
+  todoStore.loadTodos()
+})
 
 // 登出
 const logout = () => {
