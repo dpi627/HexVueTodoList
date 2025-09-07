@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+let router = null
+
+// 設置路由實例的函數
+export const setRouter = (routerInstance) => {
+  router = routerInstance
+}
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
@@ -29,10 +36,18 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Token 過期或無效，清除本地存儲並重定向到登入頁
+      // Token 過期或無效，清除本地存儲
       localStorage.removeItem('token')
       localStorage.removeItem('nickname')
-      window.location.href = '/signin'
+      
+      // 使用 Vue Router 進行導航
+      if (router) {
+        router.push('/signin')
+      } else {
+        // 備用方案：使用正確的 hash 路由格式
+        const baseUrl = import.meta.env.BASE_URL || '/'
+        window.location.href = `${baseUrl}#/signin`
+      }
     }
     return Promise.reject(error)
   },
