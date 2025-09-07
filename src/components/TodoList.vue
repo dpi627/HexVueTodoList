@@ -46,17 +46,24 @@
 <script setup>
 import { useTodoStore } from '@/stores/todo';
 import TodoItem from '@/components/TodoItem.vue';
+import { showConfirmAlert } from '@/utils/sweetAlert';
 
 const todoStore = useTodoStore()
 
 // 處理全選完成
 const handleCompleteAll = async () => {
-  await todoStore.completeAll()
+  const confirmed = await showConfirmAlert('確定完成所有待辦事項？', '將所有未完成事項都標記為完成')
+  if (confirmed) {
+    await todoStore.completeAll()
+  }
 }
 
 // 處理清除已完成
 const handleClearCompleted = async () => {
-  await todoStore.clearCompleted()
+  const confirmed = await showConfirmAlert('確定刪除所有已完成事項？', '將所有已完成事項刪除')
+  if (confirmed) {
+    await todoStore.clearCompleted()
+  }
 }
 
 </script>

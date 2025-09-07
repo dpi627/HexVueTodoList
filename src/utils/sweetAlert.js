@@ -1,9 +1,10 @@
 import Swal from 'sweetalert2'
+import { getRandomSuccessEmo, getRandomErrorEmo, getRandomConfirmEmo } from './emoImageHelper'
 
 export const showSuccessAlert = (title, text = '', timeout = false) => {
   const config = {
     icon: undefined,
-    imageUrl: '/img/emo-success.jpeg', // 使用自訂成功圖示
+    imageUrl: getRandomSuccessEmo(), // 使用自訂成功圖示
     imageWidth: 200,
     imageHeight: 200,
     title: title,
@@ -24,7 +25,7 @@ export const showSuccessAlert = (title, text = '', timeout = false) => {
 export const showErrorAlert = (title, text = '') => {
   return Swal.fire({
     icon: undefined,
-    imageUrl: '/img/emo-error.jpeg', // 使用自訂錯誤圖示
+    imageUrl: getRandomErrorEmo(), // 使用自訂錯誤圖示
     imageWidth: 200,
     imageHeight: 200,
     title: title,
@@ -37,7 +38,7 @@ export const showErrorAlert = (title, text = '') => {
 export const showConfirmAlert = async (title, text = '') => {
   const result = await Swal.fire({
     icon: undefined,
-    imageUrl: '/img/emo-confirm.jpeg', // 使用自訂確認圖示
+    imageUrl: getRandomConfirmEmo(), // 使用自訂確認圖示
     imageWidth: 200,
     imageHeight: 200,
     title: title,
