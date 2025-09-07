@@ -610,3 +610,167 @@ nav ul a span {
   font-size: 0.875rem;
   text-decoration: none;
 }
+
+/* 大螢幕優化 - 改善 1920*1080 解析度下的顯示效果 */
+
+/* 中等大螢幕 (1200px 以上) */
+@media (min-width: 1200px) {
+  .loginPage,
+  .signUpPage {
+    width: 1000px; /* 從 800px 增加到 1000px */
+  }
+  
+  .todoList_Content {
+    width: 700px; /* 從 500px 增加到 700px */
+  }
+  
+  .formControls .formControls_input {
+    width: 400px; /* 從 304px 增加到 400px */
+  }
+  
+  .side {
+    width: 480px; /* 從 386px 增加側邊圖片區域 */
+  }
+  
+  .side img {
+    max-width: 450px;
+  }
+  
+  /* 優化導航列 */
+  nav {
+    padding: 32px 48px 0 48px;
+  }
+  
+  nav h1 a {
+    width: 280px; /* 增大 Logo 尺寸 */
+    height: 45px;
+    background-size: contain;
+  }
+  
+  nav ul {
+    font-size: 1.1rem; /* 略微增大字體 */
+  }
+  
+  /* 優化待辦事項列表 */
+  .todoList_list .todoList_items {
+    padding: 32px 40px; /* 增加內邊距 */
+  }
+  
+  .todoList_list .todoList_items .todoList_label {
+    font-size: 1.1rem; /* 略微增大字體 */
+    padding-bottom: 20px;
+  }
+  
+  .inputBox {
+    margin-bottom: 24px; /* 增加間距 */
+  }
+  
+  .inputBox input {
+    height: 56px; /* 增加輸入框高度 */
+    font-size: 1.1rem;
+    padding-left: 24px;
+  }
+  
+  .inputBox a {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    padding: 12px;
+    top: 4px;
+    right: 4px;
+  }
+}
+
+/* 大螢幕 (1440px 以上) */
+@media (min-width: 1440px) {
+  .loginPage,
+  .signUpPage {
+    width: 1200px;
+  }
+  
+  .todoList_Content {
+    width: 800px;
+  }
+  
+  .formControls .formControls_input {
+    width: 450px;
+  }
+  
+  .side {
+    width: 520px;
+  }
+  
+  .side img {
+    max-width: 480px;
+  }
+}
+
+/* 超大螢幕 (1920px 以上) */
+@media (min-width: 1920px) {
+  .loginPage,
+  .signUpPage {
+    width: 1400px;
+  }
+  
+  .todoList_Content {
+    width: 1000px;
+  }
+  
+  .formControls .formControls_input {
+    width: 500px;
+  }
+  
+  .side {
+    width: 600px;
+  }
+  
+  .side img {
+    max-width: 550px;
+  }
+  
+  /* 進一步優化大螢幕體驗 */
+  .conatiner {
+    padding: 100px 48px;
+  }
+  
+  .formControls .formControls_txt {
+    font-size: 1.75rem;
+    margin-bottom: 32px;
+  }
+  
+  .formControls .formControls_btnSubmit {
+    width: 150px;
+    height: 56px;
+    font-size: 1.1rem;
+    margin: 32px 0;
+  }
+  
+  .todoList_list .todoList_tab a {
+    padding: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .todoList_list .todoList_items {
+    padding: 40px 48px;
+  }
+  
+  .todoList_list .todoList_items .todoList_label {
+    font-size: 1.2rem;
+    padding-bottom: 24px;
+  }
+  
+  .inputBox input {
+    height: 64px;
+    font-size: 1.2rem;
+    padding-left: 28px;
+  }
+  
+  .inputBox a {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+    padding: 14px;
+    top: 4px;
+    right: 4px;
+  }
+}
