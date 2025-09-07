@@ -9,7 +9,6 @@ export const preloadImage = (imagePath) => {
     const img = new Image()
 
     img.onload = () => {
-      console.log(`✅ 圖片預載成功: ${imagePath}`)
       resolve({
         success: true,
         path: imagePath,
@@ -18,7 +17,6 @@ export const preloadImage = (imagePath) => {
     }
 
     img.onerror = () => {
-      console.warn(`❌ 圖片預載失敗: ${imagePath}`)
       reject(new Error(`Failed to preload image: ${imagePath}`))
     }
 
@@ -109,13 +107,9 @@ export const generateAllImagePaths = () => {
 
 // 預載入所有專案圖片
 export const preloadAllProjectImages = async (options = {}) => {
-  const { showProgress = false, onProgress = null, logResults = true } = options
+  const { showProgress = false, onProgress = null } = options
 
   const imagePaths = generateAllImagePaths()
-
-  if (logResults) {
-    console.log(`🚀 開始預載入 ${imagePaths.length} 張圖片...`)
-  }
 
   try {
     let results
@@ -129,17 +123,6 @@ export const preloadAllProjectImages = async (options = {}) => {
     const successCount = results.filter((result) => result.success).length
     const failCount = results.length - successCount
 
-    if (logResults) {
-      console.log(`📊 圖片預載入完成: 成功 ${successCount} 張, 失敗 ${failCount} 張`)
-
-      if (failCount > 0) {
-        const failedImages = results
-          .filter((result) => !result.success)
-          .map((result) => result.path)
-        console.warn('❌ 預載入失敗的圖片:', failedImages)
-      }
-    }
-
     return {
       success: failCount === 0,
       total: results.length,
@@ -148,10 +131,6 @@ export const preloadAllProjectImages = async (options = {}) => {
       results,
     }
   } catch (error) {
-    if (logResults) {
-      console.error('💥 圖片預載入過程發生錯誤:', error)
-    }
-
     return {
       success: false,
       error: error.message,
@@ -172,13 +151,9 @@ export const preloadCriticalImages = async () => {
     `${basePath}img/empty-task.jpeg`,
   ]
 
-  console.log('🎯 預載入關鍵圖片...')
-
   try {
     const results = await preloadImages(criticalImages)
     const successCount = results.filter((result) => result.success).length
-
-    console.log(`✅ 關鍵圖片預載完成: ${successCount}/${criticalImages.length}`)
 
     return {
       success: successCount === criticalImages.length,
@@ -186,7 +161,6 @@ export const preloadCriticalImages = async () => {
       total: criticalImages.length,
     }
   } catch (error) {
-    console.error('❌ 關鍵圖片預載失敗:', error)
     return {
       success: false,
       error: error.message,

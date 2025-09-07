@@ -34,19 +34,11 @@ app.mount('#app')
 // 優先載入關鍵圖片，然後在背景載入其他圖片
 preloadCriticalImages().then((result) => {
   if (result.success) {
-    console.log('🎯 關鍵圖片預載完成，開始載入其他圖片...')
-
     // 延遲載入其他圖片，避免影響初始載入速度
     setTimeout(() => {
       preloadAllProjectImages({
         showProgress: false,
-        logResults: true,
-      }).then((allResult) => {
-        if (allResult.success) {
-          console.log('🎉 所有圖片預載完成！使用體驗將更加流暢')
-        } else {
-          console.log(`⚠️  部分圖片預載完成 (${allResult.loaded}/${allResult.total})`)
-        }
+        logResults: false,
       })
     }, 1000) // 延遲1秒開始載入非關鍵圖片
   }
