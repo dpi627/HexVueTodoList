@@ -64,7 +64,7 @@ const submitForm = handleSubmit(async (values) => {
     // 保存到 user store
     userStore.save(token, nickname)
 
-    await showSuccessAlert(`歡迎回來，${nickname}`, '即將前往待辦事項....', 3000)
+    await showSuccessAlert(`歡迎回來，${nickname}`, '正在前往待辦事項，請稍後....', 3000)
 
     // 重定向到 todolist
     router.push('/todolist')

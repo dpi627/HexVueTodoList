@@ -12,28 +12,32 @@
         <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo" />
       </ul>
       <div class="todoList_statistics">
-        <p> {{ todoStore.pendingCount }} 個未完成項目</p>
+        <p>
+          <span class="text-danger">{{ todoStore.pendingCount }} </span>
+          個待完成事項
+          <span v-if="todoStore.loading" class="text-danger">載入中...</span>
+        </p>
         <div class="action-buttons">
           <!-- 只在待完成頁面顯示全選完成按鈕 -->
           <button v-if="todoStore.filter === 'pending'" @click="handleCompleteAll"
             :disabled="todoStore.loading || todoStore.pendingCount === 0" class="btn btn-dark btn-sm rounded-circle"
-            title="將所有未完成工作完成">
+            title="完成所有待完成事項">
             <i class="fa fa-check-double"></i>
           </button>
           <!-- 只在已完成頁面顯示清除已完成按鈕 -->
           <button v-if="todoStore.filter === 'completed'" @click="handleClearCompleted"
             :disabled="todoStore.loading || todoStore.completedCount === 0" class="btn btn-dark btn-sm rounded-circle"
-            title="刪除所有已完成工作">
+            title="刪除所有已完成事項">
             <i class="fa fa-trash-can"></i>
           </button>
           <!-- 在全部頁面顯示兩個按鈕 -->
           <template v-if="todoStore.filter === ''">
             <button @click="handleCompleteAll" :disabled="todoStore.loading || todoStore.pendingCount === 0"
-              class="btn btn-dark btn-sm rounded-circle me-1" title="將所有未完成工作完成">
+              class="btn btn-dark btn-sm rounded-circle me-1" title="完成所有待完成事項">
               <i class="fa fa-check-double"></i>
             </button>
             <button @click="handleClearCompleted" :disabled="todoStore.loading || todoStore.completedCount === 0"
-              class="btn btn-dark btn-sm rounded-circle" title="刪除所有已完成工作">
+              class="btn btn-dark btn-sm rounded-circle" title="刪除所有已完成事項">
               <i class="fa fa-trash-can"></i>
             </button>
           </template>

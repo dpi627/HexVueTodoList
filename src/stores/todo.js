@@ -124,10 +124,10 @@ export const useTodoStore = defineStore('todo', () => {
         await deleteTodo(todo.id)
       }
 
-      // 從本地陣列移除已完成的項目
+      // 從本地陣列移除已完成的事項
       todos.value = todos.value.filter((todo) => !todo.status)
     } catch (err) {
-      error.value = err.response?.data?.message || '清除已完成項目失敗'
+      error.value = err.response?.data?.message || '清除已完成事項失敗'
     } finally {
       loading.value = false
     }
