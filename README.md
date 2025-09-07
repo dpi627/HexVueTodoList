@@ -173,7 +173,7 @@ C4Container
 
 ## 🔄 保留原本設計元素
 
-![](./public/img/signup.jpeg)
+<img src="./public/img/signup.jpeg" width="772">
 
 ## 😊 各種表情圖示
 
