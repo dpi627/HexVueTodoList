@@ -1,7 +1,7 @@
 <template>
   <div class="inputBox">
     <input type="text" placeholder="請輸入待辦事項" v-model="newTodo" @keypress.enter="handleSubmit"
-      :disabled="todoStore.loading">
+      :disabled="todoStore.loading" />
     <a href="#" @click.prevent="handleSubmit" :class="{ disabled: todoStore.loading }">
       <i class="fa fa-plus"></i>
     </a>
@@ -14,14 +14,17 @@ import { useTodoStore } from '@/stores/todo'
 import { showErrorAlert, showSuccessToast } from '@/utils/sweetAlert'
 
 const newTodo = ref('')
-const todoStore = useTodoStore();
+const todoStore = useTodoStore()
 
 // 監聽錯誤
-watch(() => todoStore.error, (newError) => {
-  if (newError) {
-    showErrorAlert('操作失敗', newError)
-  }
-})
+watch(
+  () => todoStore.error,
+  (newError) => {
+    if (newError) {
+      showErrorAlert('操作失敗', newError)
+    }
+  },
+)
 
 const handleSubmit = async () => {
   if (!newTodo.value.trim() || todoStore.loading) return
@@ -31,6 +34,11 @@ const handleSubmit = async () => {
   if (!todoStore.error && !todoStore.loading) {
     showSuccessToast(`新增 "${newTodo.value}"`)
     newTodo.value = ''
+
+    const inputElement = document.querySelector('input[type="text"]')
+    if (inputElement) {
+      inputElement.focus()
+    }
   }
 }
 </script>

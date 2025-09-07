@@ -24,8 +24,8 @@ import { getRandomEmoImage } from '@/utils/emoImageHelper'
 const props = defineProps({
   show: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const currentImage = ref('')
@@ -56,13 +56,16 @@ const stopImageRotation = () => {
 }
 
 // 監聽 show 屬性變化
-watch(() => props.show, (newVal) => {
-  if (newVal) {
-    startImageRotation()
-  } else {
-    stopImageRotation()
-  }
-})
+watch(
+  () => props.show,
+  (newVal) => {
+    if (newVal) {
+      startImageRotation()
+    } else {
+      stopImageRotation()
+    }
+  },
+)
 
 onMounted(() => {
   if (props.show) {
@@ -160,7 +163,6 @@ onUnmounted(() => {
 }
 
 @keyframes bounce {
-
   0%,
   20%,
   50%,

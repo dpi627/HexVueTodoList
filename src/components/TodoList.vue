@@ -1,11 +1,16 @@
 <template>
   <div class="todoList_list">
     <ul class="todoList_tab">
-      <li><a href="#" :class="{ active: todoStore.filter === '' }" @click="todoStore.setFilter('')">全部</a></li>
-      <li><a href="#" :class="{ active: todoStore.filter === 'pending' }"
-          @click="todoStore.setFilter('pending')">待完成</a></li>
-      <li><a href="#" :class="{ active: todoStore.filter === 'completed' }"
-          @click="todoStore.setFilter('completed')">已完成</a></li>
+      <li>
+        <a href="#" :class="{ active: todoStore.filter === '' }" @click="todoStore.setFilter('')">全部</a>
+      </li>
+      <li>
+        <a href="#" :class="{ active: todoStore.filter === 'pending' }" @click="todoStore.setFilter('pending')">待完成</a>
+      </li>
+      <li>
+        <a href="#" :class="{ active: todoStore.filter === 'completed' }"
+          @click="todoStore.setFilter('completed')">已完成</a>
+      </li>
     </ul>
     <div class="todoList_items">
       <ul class="todoList_item">
@@ -48,9 +53,9 @@
 </template>
 
 <script setup>
-import { useTodoStore } from '@/stores/todo';
-import TodoItem from '@/components/TodoItem.vue';
-import { showConfirmAlert } from '@/utils/sweetAlert';
+import { useTodoStore } from '@/stores/todo'
+import TodoItem from '@/components/TodoItem.vue'
+import { showConfirmAlert, showSuccessToast } from '@/utils/sweetAlert'
 
 const todoStore = useTodoStore()
 
@@ -59,6 +64,7 @@ const handleCompleteAll = async () => {
   const confirmed = await showConfirmAlert('確定完成所有待辦事項？', '將所有未完成事項都標記為完成')
   if (confirmed) {
     await todoStore.completeAll()
+    showSuccessToast('所有代辦事項均已完成')
   }
 }
 
@@ -67,9 +73,9 @@ const handleClearCompleted = async () => {
   const confirmed = await showConfirmAlert('確定刪除所有已完成事項？', '將所有已完成事項刪除')
   if (confirmed) {
     await todoStore.clearCompleted()
+    showSuccessToast('所有完成事項均已刪除')
   }
 }
-
 </script>
 
 <style scoped>

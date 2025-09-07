@@ -1,22 +1,43 @@
 <template>
   <div id="loginPage" class="bg-yellow">
-    <div class="conatiner loginPage vhContainer ">
+    <div class="conatiner loginPage vhContainer">
       <div class="side">
-        <img class="logoImg" src="/img/logo.png" alt="">
-        <img class="d-m-n" src="/img/signin.jpeg" alt="workImg">
+        <img class="logoImg" src="/img/logo.png" alt="" />
+        <img class="d-m-n" src="/img/signin.jpeg" alt="workImg" />
       </div>
       <div>
         <form class="formControls">
           <h2 class="formControls_txt">最實用的線上待辦事項服務</h2>
           <label class="formControls_label" for="email">Email</label>
-          <input v-model="email" @keypress.enter.prevent="submitForm" class="formControls_input" type="text" id="email"
-            name="email" placeholder="請輸入 email" required>
+          <input
+            v-model="email"
+            @keypress.enter.prevent="submitForm"
+            class="formControls_input"
+            type="text"
+            id="email"
+            name="email"
+            placeholder="請輸入 email"
+            required
+          />
           <span v-if="emailError">{{ emailError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
-          <input v-model="password" @keypress.enter.prevent="submitForm" class="formControls_input" type="password"
-            name="pwd" id="pwd" placeholder="請輸入密碼" required>
+          <input
+            v-model="password"
+            @keypress.enter.prevent="submitForm"
+            class="formControls_input"
+            type="password"
+            name="pwd"
+            id="pwd"
+            placeholder="請輸入密碼"
+            required
+          />
           <span v-if="passwordError">{{ passwordError }}</span>
-          <input @click.prevent="submitForm" class="formControls_btnSubmit" type="button" value="登入">
+          <input
+            @click.prevent="submitForm"
+            class="formControls_btnSubmit"
+            type="button"
+            value="登入"
+          />
           <router-link to="/signup" class="formControls_btnLink">註冊帳號</router-link>
         </form>
       </div>
@@ -27,7 +48,7 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
-import { object, string } from 'yup'  // 移除 'email' 和 'minLength'
+import { object, string } from 'yup' // 移除 'email' 和 'minLength'
 import { signIn } from '@/utils/api'
 import { useUserStore } from '@/stores/user'
 import { showSuccessAlert, showErrorAlert } from '@/utils/sweetAlert'
@@ -37,11 +58,8 @@ const userStore = useUserStore()
 
 // 定義驗證規則（使用 Yup）
 const schema = object({
-  email: string()
-    .email('請輸入有效的 email 格式')
-    .required('此欄位不可留空'),
-  password: string()
-    .required('此欄位不可留空'),
+  email: string().email('請輸入有效的 email 格式').required('此欄位不可留空'),
+  password: string().required('此欄位不可留空'),
 })
 
 // 使用 VeeValidate - handleSubmit

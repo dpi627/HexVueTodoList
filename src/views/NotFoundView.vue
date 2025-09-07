@@ -2,10 +2,10 @@
   <div id="notFoundPage" class="bg-yellow">
     <div class="conatiner notFoundPage vhContainer">
       <div class="centered-content">
-        <img class="logoImg" src="/img/logo.png" alt="">
+        <img class="logoImg" src="/img/logo.png" alt="" />
         <h2 class="page-title">頁面不存在</h2>
         <p class="page-description">抱歉，您造訪的頁面不存在或已被移除</p>
-        <img class="main-image" src="/img/404.jpeg" alt="404">
+        <img class="main-image" src="/img/404.jpeg" alt="404" />
         <router-link to="/" class="home-button">回首頁</router-link>
       </div>
     </div>
