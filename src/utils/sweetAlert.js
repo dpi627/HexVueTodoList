@@ -62,7 +62,6 @@ export const showSuccessToast = (text = '', timer = 3000) => {
     position: 'top-end',
     icon: 'success',
     text: text,
-    width: 300,
     showConfirmButton: false,
     timer: timer,
     timerProgressBar: true,
