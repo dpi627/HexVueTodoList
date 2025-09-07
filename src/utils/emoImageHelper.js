@@ -20,3 +20,9 @@ export const getRandomErrorEmo = () => {
 export const getRandomConfirmEmo = () => {
   return getRandomEmoImage('confirm')
 }
+
+// 獲取載入時的隨機圖片輪播
+export const getLoadingImageRotation = () => {
+  const types = ['success', 'error', 'confirm']
+  return types.map((type) => getRandomEmoImage(type))
+}

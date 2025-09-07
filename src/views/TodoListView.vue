@@ -15,8 +15,6 @@
     </nav>
     <div class="conatiner todoListPage vhContainer">
       <div class="todoList_Content">
-        <!-- 載入狀態 -->
-        <div v-if="todoStore.loading" class="alert alert-info">載入中...</div>
         <!-- 錯誤訊息 -->
         <div v-if="todoStore.error" class="alert alert-danger">{{ todoStore.error }}</div>
 
@@ -27,6 +25,9 @@
         </div>
       </div>
     </div>
+
+    <!-- 載入覆蓋層 -->
+    <LoadingOverlay :show="todoStore.loading" />
   </div>
 </template>
 
@@ -37,6 +38,7 @@ import { useTodoStore } from '@/stores/todo'
 import { useUserStore } from '@/stores/user'
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import { showConfirmAlert } from '@/utils/sweetAlert'
 
 const router = useRouter()
