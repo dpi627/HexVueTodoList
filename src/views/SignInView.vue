@@ -57,7 +57,6 @@ password.value = 'abc123'
 const submitForm = handleSubmit(async (values) => {
   try {
     const response = await signIn(values.email, values.password)
-    console.log('Sign in successful:', response)
 
     // 從響應中獲取用戶信息
     const { token, nickname } = response.data
@@ -70,7 +69,6 @@ const submitForm = handleSubmit(async (values) => {
     // 重定向到 todolist
     router.push('/todolist')
   } catch (error) {
-    // console.error('Sign in error:', error)
     await showErrorAlert('登入失敗', error.response?.data?.message || '未知錯誤')
   }
 })

@@ -38,7 +38,6 @@ export const useTodoStore = defineStore('todo', () => {
       todos.value = response.data.data || []
     } catch (err) {
       error.value = err.response?.data?.message || '載入待辦事項失敗'
-      console.error('Load todos error:', err)
     } finally {
       loading.value = false
     }
@@ -55,7 +54,6 @@ export const useTodoStore = defineStore('todo', () => {
       todos.value.push(response.data.newTodo)
     } catch (err) {
       error.value = err.response?.data?.message || '新增待辦事項失敗'
-      console.error('Add todo error:', err)
     } finally {
       loading.value = false
     }
@@ -73,7 +71,6 @@ export const useTodoStore = defineStore('todo', () => {
       }
     } catch (err) {
       error.value = err.response?.data?.message || '刪除待辦事項失敗'
-      console.error('Remove todo error:', err)
     } finally {
       loading.value = false
     }
@@ -91,7 +88,6 @@ export const useTodoStore = defineStore('todo', () => {
       }
     } catch (err) {
       error.value = err.response?.data?.message || '更新待辦事項失敗'
-      console.error('Toggle todo error:', err)
     } finally {
       loading.value = false
     }
@@ -113,7 +109,6 @@ export const useTodoStore = defineStore('todo', () => {
       }
     } catch (err) {
       error.value = err.response?.data?.message || '批量完成待辦事項失敗'
-      console.error('Complete all todos error:', err)
     } finally {
       loading.value = false
     }
@@ -133,7 +128,6 @@ export const useTodoStore = defineStore('todo', () => {
       todos.value = todos.value.filter((todo) => !todo.status)
     } catch (err) {
       error.value = err.response?.data?.message || '清除已完成項目失敗'
-      console.error('Clear completed todos error:', err)
     } finally {
       loading.value = false
     }

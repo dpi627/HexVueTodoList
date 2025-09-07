@@ -7,7 +7,6 @@ export const useUserStore = defineStore('user', () => {
   const isLogin = ref(false)
 
   const save = (tokenValue, nicknameValue) => {
-    console.log('Saving user data:', { tokenValue, nicknameValue })
     token.value = tokenValue
     nickname.value = nicknameValue
     isLogin.value = true
