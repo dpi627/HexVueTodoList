@@ -109,7 +109,7 @@ onUnmounted(() => {
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   text-align: center;
-  min-width: 200px;
+  min-width: 300px;
   animation: fadeInScale 0.3s ease-out;
 }
 

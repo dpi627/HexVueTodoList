@@ -29,7 +29,7 @@ const handleSubmit = async () => {
   await todoStore.add(newTodo.value)
 
   if (!todoStore.error && !todoStore.loading) {
-    showSuccessToast('新增待辦事項', `"${newTodo.value}" 加入清單`)
+    showSuccessToast(`新增 "${newTodo.value}"`)
     newTodo.value = ''
   }
 }

@@ -56,15 +56,13 @@ export const showConfirmAlert = async (title, text = '') => {
   return result.isConfirmed
 }
 
-export const showSuccessToast = (title, text = '', timer = 3000) => {
+export const showSuccessToast = (text = '', timer = 3000) => {
   return Swal.fire({
     toast: true,
-    position: 'bottom-end',
+    position: 'top-end',
     icon: 'success',
-    // title: title,
     text: text,
     width: 300,
-    fontSize: '12px',
     showConfirmButton: false,
     timer: timer,
     timerProgressBar: true,
