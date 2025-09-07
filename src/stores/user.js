@@ -5,6 +5,7 @@ export const useUserStore = defineStore('user', () => {
   const token = ref('')
   const nickname = ref('')
   const isLogin = ref(false)
+  const loading = ref(false) // 載入狀態
 
   const save = (tokenValue, nicknameValue) => {
     token.value = tokenValue
@@ -38,12 +39,19 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  // 設定載入狀態的方法
+  const setLoading = (status) => {
+    loading.value = status
+  }
+
   return {
     token,
     nickname,
     isLogin,
+    loading,
     save,
     clear,
     init,
+    setLoading,
   }
 })

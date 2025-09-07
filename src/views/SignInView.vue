@@ -10,17 +10,21 @@
           <h2 class="formControls_txt">最實用的線上待辦事項服務</h2>
           <label class="formControls_label" for="email">Email</label>
           <input v-model="email" @keypress.enter.prevent="submitForm" class="formControls_input" type="text" id="email"
-            name="email" placeholder="請輸入 email" required />
+            name="email" placeholder="請輸入 email" required :disabled="userStore.loading" />
           <span v-if="emailError">{{ emailError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
           <input v-model="password" @keypress.enter.prevent="submitForm" class="formControls_input" type="password"
-            name="pwd" id="pwd" placeholder="請輸入密碼" required />
+            name="pwd" id="pwd" placeholder="請輸入密碼" required :disabled="userStore.loading" />
           <span v-if="passwordError">{{ passwordError }}</span>
-          <input @click.prevent="submitForm" class="formControls_btnSubmit" type="button" value="登入" />
+          <input @click.prevent="submitForm" class="formControls_btnSubmit" type="button" value="登入"
+            :disabled="userStore.loading" />
           <router-link to="/signup" class="formControls_btnLink">註冊帳號</router-link>
         </form>
       </div>
     </div>
+
+    <!-- 載入覆蓋層 -->
+    <LoadingOverlay :show="userStore.loading" />
   </div>
 </template>
 
@@ -31,6 +35,7 @@ import { object, string } from 'yup' // 移除 'email' 和 'minLength'
 import { signIn } from '@/utils/api'
 import { useUserStore } from '@/stores/user'
 import { showSuccessAlert, showErrorAlert } from '@/utils/sweetAlert'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -50,6 +55,7 @@ const { value: password, errorMessage: passwordError } = useField('password')
 // 提交處理方法封裝
 const submitForm = handleSubmit(async (values) => {
   try {
+    userStore.setLoading(true)
     const response = await signIn(values.email, values.password)
 
     // 從響應中獲取用戶信息
@@ -58,11 +64,15 @@ const submitForm = handleSubmit(async (values) => {
     // 保存到 user store
     userStore.save(token, nickname)
 
+    // 先關閉載入動畫，再顯示成功訊息
+    userStore.setLoading(false)
     await showSuccessAlert(`歡迎回來，${nickname}`, '正在前往待辦事項，請稍後....', 3000)
 
     // 重定向到 todolist
     router.push('/todolist')
   } catch (error) {
+    // 錯誤時立即關閉載入動畫
+    userStore.setLoading(false)
     await showErrorAlert('登入失敗', error.response?.data?.message || '未知錯誤')
   }
 })

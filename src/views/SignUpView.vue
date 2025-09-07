@@ -10,26 +10,30 @@
           <h2 class="formControls_txt">註冊帳號</h2>
           <label class="formControls_label" for="email">Email</label>
           <input class="formControls_input" v-model="email" type="text" id="email" name="email" placeholder="請輸入 email"
-            required />
+            required :disabled="userStore.loading" />
           <span v-if="emailError" class="error">{{ emailError }}</span>
           <!-- 顯示錯誤 -->
           <label class="formControls_label" for="name">您的暱稱</label>
-          <input class="formControls_input" v-model="nickname" type="text" name="name" id="name"
-            placeholder="請輸入您的暱稱" />
+          <input class="formControls_input" v-model="nickname" type="text" name="name" id="name" placeholder="請輸入您的暱稱"
+            :disabled="userStore.loading" />
           <span v-if="nicknameError" class="error">{{ nicknameError }}</span>
           <label class="formControls_label" for="pwd">密碼</label>
           <input class="formControls_input" v-model="password" type="password" name="pwd" id="pwd" placeholder="請輸入密碼"
-            required />
+            required :disabled="userStore.loading" />
           <span v-if="passwordError" class="error">{{ passwordError }}</span>
           <label class="formControls_label" for="pwd">再次輸入密碼</label>
           <input class="formControls_input" v-model="passwordConfirm" type="password" name="pwd" id="pwd2"
-            placeholder="請再次輸入密碼" required />
+            placeholder="請再次輸入密碼" required :disabled="userStore.loading" />
           <span v-if="passwordConfirmError" class="error">{{ passwordConfirmError }}</span>
-          <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm" />
+          <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="submitForm"
+            :disabled="userStore.loading" />
           <router-link to="/signin" class="formControls_btnLink">登入</router-link>
         </form>
       </div>
     </div>
+
+    <!-- 載入覆蓋層 -->
+    <LoadingOverlay :show="userStore.loading" />
   </div>
 </template>
 
@@ -38,9 +42,12 @@ import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import { object, string, ref as yupRef } from 'yup' // 移除 'email' 和 'minLength'
 import { signUp } from '@/utils/api'
+import { useUserStore } from '@/stores/user'
 import { showSuccessAlert, showErrorAlert } from '@/utils/sweetAlert'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 // 定義驗證規則（使用 Yup）
 const schema = object({
@@ -67,11 +74,18 @@ const { value: passwordConfirm, errorMessage: passwordConfirmError } = useField(
 // 提交處理方法封裝
 const submitForm = handleSubmit(async (values) => {
   try {
+    userStore.setLoading(true)
     await signUp(values.email, values.password, values.nickname)
+
+    // 先關閉載入動畫，再顯示成功訊息
+    userStore.setLoading(false)
     await showSuccessAlert('註冊成功！', '前往登入頁面...', 3000)
+
     // 處理成功（例如，重定向到登入頁面）
     router.push('/signin')
   } catch (error) {
+    // 錯誤時立即關閉載入動畫
+    userStore.setLoading(false)
     await showErrorAlert('註冊失敗', error.response?.data?.message || '未知錯誤')
   }
 })
