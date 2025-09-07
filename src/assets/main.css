@@ -155,7 +155,7 @@ html {
 body {
   font-family: 'Noto Sans TC';
   margin: 0 auto;
-  overflow: hidden;
+  overflow: hidden; /* 完全隱藏外層捲軸 */
 }
 
 img {
@@ -168,7 +168,8 @@ img {
 }
 
 .vhContainer {
-  height: 100vh;
+  height: 100vh; /* 固定高度，防止外層捲軸出現 */
+  overflow: hidden; /* 確保容器本身不會產生捲軸 */
 }
 
 .bg-yellow {
@@ -436,6 +437,9 @@ nav ul a span {
 
 .todoListPage {
   padding: 16px 32px;
+  height: 100vh; /* 固定高度 */
+  overflow: hidden; /* 防止頁面層級的捲軸 */
+  box-sizing: border-box; /* 包含 padding 在高度計算內 */
 }
 
 @media (max-width: 576px) {
@@ -447,11 +451,15 @@ nav ul a span {
 .todoList_Content {
   width: 500px;
   margin: 0 auto;
+  height: calc(100vh - 120px); /* 減去導航和 padding 的高度 */
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 576px) {
   .todoList_Content {
     width: 100%;
+    height: calc(100vh - 100px); /* 移動端高度調整 */
   }
 }
 
@@ -464,6 +472,7 @@ nav ul a span {
   margin-bottom: 16px;
   -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  flex-shrink: 0; /* 防止輸入框被壓縮 */
 }
 
 .inputBox input {
@@ -498,6 +507,10 @@ nav ul a span {
   border-radius: 10px;
   -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 佔用父容器的剩餘空間 */
+  min-height: 0; /* 允許 flex 子項目收縮 */
 }
 
 .todoList_list .todoList_tab {
@@ -534,10 +547,17 @@ nav ul a span {
   padding-left: 24px;
   padding-right: 17px;
   padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 佔用剩餘空間 */
+  overflow: hidden; /* 防止整個容器溢出 */
 }
 
 .todoList_list .todoList_items .todoList_item {
   margin-bottom: 8px;
+  flex: 1; /* 佔用可用空間 */
+  overflow-y: auto; /* 當內容超出時顯示垂直捲軸 */
+  margin-bottom: 16px; /* 與統計區域保持間距 */
 }
 
 .todoList_list .todoList_items .todoList_label {
@@ -598,6 +618,10 @@ nav ul a span {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  flex-shrink: 0; /* 防止收縮 */
+  padding-top: 16px; /* 與上方內容保持間距 */
+  border-top: 1px solid #e5e5e5; /* 添加分隔線 */
+  background: #fff; /* 確保背景色 */
 }
 
 .todoList_list .todoList_statistics p {
@@ -652,8 +676,17 @@ nav ul a span {
   }
 
   /* 優化待辦事項列表 */
+  .todoList_Content {
+    width: 700px; /* 從 500px 增加到 700px */
+    height: calc(100vh - 140px); /* 大螢幕上調整高度計算 */
+  }
+
   .todoList_list .todoList_items {
     padding: 32px 40px; /* 增加內邊距 */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
   }
 
   .todoList_list .todoList_items .todoList_label {
@@ -690,6 +723,7 @@ nav ul a span {
 
   .todoList_Content {
     width: 800px;
+    height: calc(100vh - 150px); /* 1440px+ 螢幕的高度調整 */
   }
 
   .formControls .formControls_input {
@@ -714,6 +748,7 @@ nav ul a span {
 
   .todoList_Content {
     width: 1000px;
+    height: calc(100vh - 160px); /* 1920px+ 螢幕的高度調整 */
   }
 
   .formControls .formControls_input {
@@ -752,6 +787,10 @@ nav ul a span {
 
   .todoList_list .todoList_items {
     padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
   }
 
   .todoList_list .todoList_items .todoList_label {
@@ -773,4 +812,23 @@ nav ul a span {
     top: 4px;
     right: 4px;
   }
+}
+
+/* 自定義捲軸樣式 */
+.todoList_list .todoList_items .todoList_item::-webkit-scrollbar {
+  width: 8px;
+}
+
+.todoList_list .todoList_items .todoList_item::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.todoList_list .todoList_items .todoList_item::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.todoList_list .todoList_items .todoList_item::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
